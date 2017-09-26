@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour {
 
         GameObject arrow = (GameObject)Instantiate(Projectile);
 
-        // TODO set possition appropriately
+        // TODO set position appropriately
         arrow.transform.position = transform.position;
 
 
