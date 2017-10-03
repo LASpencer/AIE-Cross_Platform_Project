@@ -3,14 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//HACK enumeration for testing different control schemes
+public enum ControlType
+{
+    Mouse,
+    Axis
+}
+
 // TODO add required components
 public class PlayerController : MonoBehaviour {
 
     public float MinArrowCharge = 5.0f;
     public float MaxArrowCharge = 20.0f;
     public float FullChargeTime = 2.0f;
+    public float ArmRotateRate = 100.0f;
     public GameObject Projectile;
     public Slider ChargeSlider;
+    public ControlType Control = ControlType.Mouse;
 
     public float ChargeTime = 0.0f;
 
@@ -52,10 +61,23 @@ public class PlayerController : MonoBehaviour {
     {
         //TODO conditionally compile based on platform
 
-        // Windows/Web version
-        Vector3 direction = GetDirectionToPoint(Input.mousePosition);
-        //TODO clamp within range [1,0] [0,1] counterclockwise
-        AimDirection = direction;
+        //HACK using switch to test out different controls
+
+        switch (Control) {
+            case ControlType.Mouse:
+            // Windows/Web version
+            Vector3 direction = GetDirectionToPoint(Input.mousePosition);
+            //TODO clamp within range [1,0] [0,1] counterclockwise
+            AimDirection = direction;
+                break;
+            case ControlType.Axis:
+                //TODO clamp within range [1,0] [0,1] counterclockwise
+                AimDirection = Quaternion.AngleAxis(Input.GetAxis("Vertical") * ArmRotateRate * Time.deltaTime, transform.forward) * AimDirection;
+                break;
+            default:
+                break;
+    }
+        //TODO clamp 
 
         // TODO playstation version moves based on axis
 
