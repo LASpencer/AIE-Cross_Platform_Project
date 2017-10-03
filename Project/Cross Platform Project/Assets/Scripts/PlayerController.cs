@@ -6,7 +6,8 @@ using UnityEngine.UI;
 // TODO add required components
 public class PlayerController : MonoBehaviour {
 
-    public float MaxArrowCharge = 10.0f;
+    public float MinArrowCharge = 5.0f;
+    public float MaxArrowCharge = 20.0f;
     public float FullChargeTime = 2.0f;
     public GameObject Projectile;
     public Slider ChargeSlider;
@@ -93,7 +94,7 @@ public class PlayerController : MonoBehaviour {
     {
         //TODO calculate force magnitude more appropriately, set direction
         //TODO arrow has min charge
-        float arrowCharge = MaxArrowCharge * ChargeTime / FullChargeTime;
+        float arrowCharge = Mathf.Lerp(MinArrowCharge,MaxArrowCharge, ChargeTime / FullChargeTime);
         Vector3 arrowForce = AimDirection * arrowCharge;
 
         GameObject arrow = (GameObject)Instantiate(Projectile);
