@@ -184,20 +184,6 @@ Light:
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_FalloffTable:
-    m_Table[0]: 0
-    m_Table[1]: 0
-    m_Table[2]: 0
-    m_Table[3]: 0
-    m_Table[4]: 0
-    m_Table[5]: 0
-    m_Table[6]: 0
-    m_Table[7]: 0
-    m_Table[8]: 0
-    m_Table[9]: 0
-    m_Table[10]: 0
-    m_Table[11]: 0
-    m_Table[12]: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -588,7 +574,8 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.41, y: 0.81, z: 0}
   m_LocalScale: {x: 0.2, y: 0.8, z: 0.2}
-  m_Children: []
+  m_Children:
+  - {fileID: 2017666210}
   m_Father: {fileID: 1250632749}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -740,12 +727,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e04c7fdeb5cf344d8b99076ffb9fc88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MinArrowCharge: 5
   MaxArrowCharge: 20
   FullChargeTime: 1
+  ArmRotateRate: 100
   Projectile: {fileID: 1182012889655288, guid: b76ad5a49af6c4f47929292557758c95, type: 2}
   ChargeSlider: {fileID: 1415298218}
+  Control: 0
   ChargeTime: 0
   AimDirection: {x: 0, y: 0, z: 0}
+  MuzzleTransform: {fileID: 0}
 --- !u!1 &1363397112
 GameObject:
   m_ObjectHideFlags: 0
@@ -1070,3 +1061,31 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1972589074}
+--- !u!1 &2017666209
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2017666210}
+  m_Layer: 0
+  m_Name: Muzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2017666210
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2017666209}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.98, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1207336577}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -26,9 +26,13 @@ public class PlayerController : MonoBehaviour {
     [HideInInspector]
     public Vector3 AimDirection;
 
+    [HideInInspector]
+    public Transform MuzzleTransform;
+
 	// Use this for initialization
 	void Start () {
         AimDirection = new Vector3(1, 0, 0);
+        MuzzleTransform = transform.Find("Arm").Find("Muzzle");
 	}
 
     // Update is called once per frame
@@ -114,15 +118,13 @@ public class PlayerController : MonoBehaviour {
 
     void ShootArrow()
     {
-        //TODO calculate force magnitude more appropriately, set direction
-        //TODO arrow has min charge
         float arrowCharge = Mathf.Lerp(MinArrowCharge,MaxArrowCharge, ChargeTime / FullChargeTime);
         Vector3 arrowForce = AimDirection * arrowCharge;
 
         GameObject arrow = (GameObject)Instantiate(Projectile);
 
         // TODO set position appropriately
-        arrow.transform.position = transform.position;
+        arrow.transform.position = MuzzleTransform.position;
 
 
         arrow.GetComponent<Rigidbody>().AddForce(arrowForce, ForceMode.Impulse);
