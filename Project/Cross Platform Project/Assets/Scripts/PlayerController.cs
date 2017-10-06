@@ -81,7 +81,15 @@ public class PlayerController : MonoBehaviour {
             default:
                 break;
     }
-        //TODO clamp 
+        // Clamp rotation to 90 degree firing arc
+        //HACK could rewrite to allow different arcs
+        if(AimDirection.y < 0)
+        {
+            AimDirection = new Vector3(1, 0, 0);
+        } else if (AimDirection.x < 0)
+        {
+            AimDirection = new Vector3(0, 1, 0);
+        }
 
         // TODO playstation version moves based on axis
 
