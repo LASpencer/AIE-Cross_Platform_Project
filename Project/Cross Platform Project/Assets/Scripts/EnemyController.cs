@@ -8,9 +8,11 @@ public class EnemyController : MonoBehaviour {
 
     public float health = 1.0f;
     public float speed = 3.0f;
+    public int KillPoints;
+    public GameManagerController GameManager;
 	// Use this for initialization
 	void Start () {
-		
+        GameManager = FindObjectOfType<GameManagerController>();
 	}
 	
 	// Update is called once per frame
@@ -19,6 +21,7 @@ public class EnemyController : MonoBehaviour {
         {
             //TODO do some dying animation, etc
             //TODO score points for kill
+            GameManager.Score += KillPoints;
             Destroy(this.gameObject);
         }
         //TODO movement pattern (ie lurching zombies)
@@ -33,6 +36,4 @@ public class EnemyController : MonoBehaviour {
         // TODO min of 0, can only reduce not increase health
         health -= amount;
     }
-
-    
 }

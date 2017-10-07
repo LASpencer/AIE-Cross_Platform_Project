@@ -95,6 +95,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 1
   speed: 3
+  KillPoints: 15
+  GameManager: {fileID: 0}
 --- !u!135 &135223062705995430
 SphereCollider:
   m_ObjectHideFlags: 1
