@@ -36,4 +36,13 @@ public class EnemyController : MonoBehaviour {
         // TODO min of 0, can only reduce not increase health
         health -= amount;
     }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "KillBox")
+        {
+            other.GetComponentInParent<PlayerController>().Damage(1);
+            Destroy(this.gameObject);
+        }
+    }
 }

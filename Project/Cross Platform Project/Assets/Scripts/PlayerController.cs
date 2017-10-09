@@ -17,9 +17,13 @@ public class PlayerController : MonoBehaviour {
     public float MaxArrowCharge = 20.0f;
     public float FullChargeTime = 2.0f;
     public float ArmRotateRate = 100.0f;
+    public float MaxHealth = 3.0f;
+    public float Health;
     public GameObject Projectile;
     public Slider ChargeSlider;
+    public Slider HealthSlider;
     public ControlType Control = ControlType.Mouse;
+    public GameManagerController GameManager;
 
     public float ChargeTime = 0.0f;
 
@@ -31,6 +35,10 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        GameManager = FindObjectOfType<GameManagerController>();
+        Health = MaxHealth;
+        HealthSlider.maxValue = MaxHealth;
+        HealthSlider.value = Health;
         AimDirection = new Vector3(1, 0, 0);
         MuzzleTransform = transform.Find("Arm").Find("Muzzle");
 	}
@@ -57,8 +65,21 @@ public class PlayerController : MonoBehaviour {
             ChargeTime = 0;
         }
 
+        if(Health == 0.0f)
+        {
+            GameManager.EndGame();
+        }
+
         //TODO nicer charge slider animations
         ChargeSlider.value = ChargeTime / FullChargeTime;
+
+        HealthSlider.value = Health;
+    }
+
+    public void RestartGame()
+    {
+        Health = MaxHealth;
+        ChargeTime = 0;
     }
 
     void UpdateAimDirection()
@@ -138,15 +159,8 @@ public class PlayerController : MonoBehaviour {
         arrow.GetComponent<Rigidbody>().AddForce(arrowForce, ForceMode.Impulse);
     }
 
-    void OnTriggerEnter(Collider other)
+    public void Damage(float damage)
     {
-        switch (other.gameObject.tag)
-        {
-            case "Enemy":
-                //TODO trigger killing player, game over
-                break;
-            default:
-                break;
-        }
+        Health = Mathf.Max(Health - damage, 0);
     }
 }
