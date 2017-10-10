@@ -67,6 +67,7 @@ public class PlayerController : MonoBehaviour {
 
         if(Health == 0.0f)
         {
+            gameObject.SetActive(false);
             GameManager.EndGame();
         }
 

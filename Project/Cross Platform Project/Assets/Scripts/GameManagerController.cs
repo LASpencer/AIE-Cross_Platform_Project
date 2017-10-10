@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManagerController : MonoBehaviour {
@@ -20,8 +21,9 @@ public class GameManagerController : MonoBehaviour {
 
     public void EndGame()
     {
-        //TODO have actual game over screen with option to restart or quit
-        RestartGame();
+        GameController.Instance.LastScore = Score;
+        GameController.Instance.HighScore = Mathf.Max(Score, GameController.Instance.HighScore);
+        SceneManager.LoadSceneAsync("GameOverScene");
     }
 
     public void RestartGame()
