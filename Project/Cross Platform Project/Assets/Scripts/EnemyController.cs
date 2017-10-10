@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//TODO add requirements
-//TODO create an enemy spawner
+[RequireComponent(typeof(Rigidbody))]
 public class EnemyController : MonoBehaviour {
 
     public float health = 1.0f;
@@ -19,21 +18,17 @@ public class EnemyController : MonoBehaviour {
 	void Update () {
 		if(health <= 0)
         {
-            //TODO do some dying animation, etc
-            //TODO score points for kill
+            //score points for kill
             GameManager.Score += KillPoints;
             Destroy(this.gameObject);
         }
         //TODO movement pattern (ie lurching zombies)
         Vector3 movement = new Vector3(-speed * Time.deltaTime, 0, 0);
         transform.position += movement;
-        //TODO oncollision/trigger enter with player, game over
 	}
 
     public void Damage(float amount)
     {
-        // TODO do hurt animation
-        // TODO min of 0, can only reduce not increase health
         health -= amount;
     }
 

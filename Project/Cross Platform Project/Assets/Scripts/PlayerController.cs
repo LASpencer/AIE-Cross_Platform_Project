@@ -10,9 +10,9 @@ public enum ControlType
     Axis
 }
 
-// TODO add required components
 public class PlayerController : MonoBehaviour {
 
+    //TODO comment fields
     public float MinArrowCharge = 5.0f;
     public float MaxArrowCharge = 20.0f;
     public float FullChargeTime = 2.0f;
@@ -86,26 +86,46 @@ public class PlayerController : MonoBehaviour {
     void UpdateAimDirection()
     {
         //TODO conditionally compile based on platform
-
         //HACK using switch to test out different controls
-
-        switch (Control) {
+#if UNITY_EDITOR
+        switch (Control)
+        {
             case ControlType.Mouse:
-            // Windows/Web version
-            Vector3 direction = GetDirectionToPoint(Input.mousePosition);
-            //TODO clamp within range [1,0] [0,1] counterclockwise
-            AimDirection = direction;
+                // Windows/Web version
+                AimDirection = GetDirectionToPoint(Input.mousePosition);
                 break;
             case ControlType.Axis:
-                //TODO clamp within range [1,0] [0,1] counterclockwise
                 AimDirection = Quaternion.AngleAxis(Input.GetAxis("Vertical") * ArmRotateRate * Time.deltaTime, transform.forward) * AimDirection;
                 break;
             default:
                 break;
-    }
+        }
+#endif
+#if UNITY_STANDALONE_WIN
+        AimDirection = GetDirectionToPoint(Input.mousePosition);
+#endif
+#if UNITY_WEBGL
+        AimDirection = GetDirectionToPoint(Input.mousePosition);
+#endif
+#if UNITY_ANDROID
+        if(Input.touches.Length > 0){
+            Touch t = Input.touches[0];
+            AimDirection = GetDirectionToPoint(t.position);
+        }
+#endif
+#if UNITY_IOS
+        if(Input.touches.Length > 0){
+            Touch t = Input.touches[0];
+            AimDirection = GetDirectionToPoint(t.position);
+        }
+#endif
+#if UNITY_PS4
+        AimDirection = Quaternion.AngleAxis(Input.GetAxis("Vertical") * ArmRotateRate * Time.deltaTime, transform.forward) * AimDirection;
+#endif
+
         // Clamp rotation to 90 degree firing arc
         //HACK could rewrite to allow different arcs
-        if(AimDirection.y < 0)
+        if (AimDirection.y < 0)
         {
             AimDirection = new Vector3(1, 0, 0);
         } else if (AimDirection.x < 0)
@@ -133,7 +153,7 @@ public class PlayerController : MonoBehaviour {
     bool FireHeld()
     {
         //TODO conditional compilation
-
+#if UNITY_EDITOR
         // PC/Web/PS4 version
         if(Input.GetAxis("Fire1") > 0)
         {
@@ -142,7 +162,60 @@ public class PlayerController : MonoBehaviour {
         {
             return false;
         }
-
+#endif
+#if UNITY_STANDALONE_WIN
+        if(Input.GetAxis("Fire1") > 0)
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
+#endif
+#if UNITY_WEBGL
+        if (Input.GetAxis("Fire1") > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+#endif
+#if UNITY_ANDROID
+        if(Input.touches.Length > 0){
+            Touch t = Input.touches[0];
+            if(t.phase == TouchPhase.Began || t.phase == TouchPhase.Moved || t.phase == TouchPhase.Stationary){
+                return true;    
+            } else {
+                return false;
+            }
+        } else {
+            return false
+        }
+#endif
+#if UNITY_IOS
+        if(Input.touches.Length > 0){
+            Touch t = Input.touches[0];
+            if(t.phase == TouchPhase.Began || t.phase == TouchPhase.Moved || t.phase == TouchPhase.Stationary){
+                return true;    
+            } else {
+                return false;
+            }
+        } else {
+            return false
+        }
+#endif
+#if UNITY_PS4
+        if (Input.GetAxis("Fire1") > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+#endif
         // TODO touchscreen version
     }
 
