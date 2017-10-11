@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class CameraController : MonoBehaviour {
 
+    // Position for player in screen space
     public Vector3 TargetPosition;
     public GameObject Player;
 
@@ -17,6 +18,7 @@ public class CameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        // Move camera to put player at set position on screen
         Vector3 playerPos = Player.transform.position;
         Ray targetRay = cam.ScreenPointToRay(TargetPosition);
         Plane playerPlane = new Plane(transform.forward, playerPos);

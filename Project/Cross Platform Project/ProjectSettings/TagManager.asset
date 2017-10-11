@@ -4,10 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Ground
-  - Arrow
   - Enemy
-  - KillBox
+  - Arrow
   layers:
   - Default
   - TransparentFX

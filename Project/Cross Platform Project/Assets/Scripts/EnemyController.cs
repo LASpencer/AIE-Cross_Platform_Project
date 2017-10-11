@@ -22,7 +22,6 @@ public class EnemyController : MonoBehaviour {
             GameManager.Score += KillPoints;
             Destroy(this.gameObject);
         }
-        //TODO movement pattern (ie lurching zombies)
         Vector3 movement = new Vector3(-speed * Time.deltaTime, 0, 0);
         transform.position += movement;
 	}

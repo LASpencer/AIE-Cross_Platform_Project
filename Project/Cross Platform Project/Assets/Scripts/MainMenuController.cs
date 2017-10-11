@@ -7,11 +7,16 @@ public class MainMenuController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
+#if UNITY_ANDROID
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
+#endif
+#if UNITY_IOS
+        Screen.orientation = ScreenOrientation.LandscapeLeft;
+#endif
+    }
+
+    // Update is called once per frame
+    void Update () {
 		
 	}
 

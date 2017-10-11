@@ -12,11 +12,10 @@ public enum ControlType
 
 public class PlayerController : MonoBehaviour {
 
-    //TODO comment fields
-    public float MinArrowCharge = 5.0f;
-    public float MaxArrowCharge = 20.0f;
-    public float FullChargeTime = 2.0f;
-    public float ArmRotateRate = 100.0f;
+    public float MinArrowCharge = 5.0f;         // Force on arrow at 0 charge
+    public float MaxArrowCharge = 20.0f;        // Force on arrow at full charge
+    public float FullChargeTime = 2.0f;         // Time to reach full charge
+    public float ArmRotateRate = 100.0f;        // Rate of arm rotation when controlled by axis
     public float MaxHealth = 3.0f;
     public float Health;
     public GameObject Projectile;
@@ -28,10 +27,10 @@ public class PlayerController : MonoBehaviour {
     public float ChargeTime = 0.0f;
 
     [HideInInspector]
-    public Vector3 AimDirection;
+    public Vector3 AimDirection;            // Direction aimed at
 
     [HideInInspector]
-    public Transform MuzzleTransform;
+    public Transform MuzzleTransform;       // End of arm
 
 	// Use this for initialization
 	void Start () {
@@ -46,14 +45,12 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        //TODO aim towards point (mouse position/touch position for web and phone, by vertical axis movement for web and ps4)
         UpdateAimDirection();
         transform.Find("Arm").transform.up = AimDirection;
-        //TODO check if holding down fire, if so charge up
+        // check if holding down fire, if so charge up
         if (FireHeld())
         {
             ChargeTime = Mathf.Min(ChargeTime + Time.deltaTime, FullChargeTime);
-            //TODO some UI element/animations/sounds to show charging up
         }
         else
         {
@@ -71,7 +68,7 @@ public class PlayerController : MonoBehaviour {
             GameManager.EndGame();
         }
 
-        //TODO nicer charge slider animations
+        // Update slider values
         ChargeSlider.value = ChargeTime / FullChargeTime;
 
         HealthSlider.value = Health;
@@ -85,8 +82,6 @@ public class PlayerController : MonoBehaviour {
 
     void UpdateAimDirection()
     {
-        //TODO conditionally compile based on platform
-        //HACK using switch to test out different controls
 #if UNITY_EDITOR
         switch (Control)
         {
@@ -124,7 +119,6 @@ public class PlayerController : MonoBehaviour {
 #endif
 
         // Clamp rotation to 90 degree firing arc
-        //HACK could rewrite to allow different arcs
         if (AimDirection.y < 0)
         {
             AimDirection = new Vector3(1, 0, 0);
@@ -132,8 +126,7 @@ public class PlayerController : MonoBehaviour {
         {
             AimDirection = new Vector3(0, 1, 0);
         }
-
-        // TODO playstation version moves based on axis
+        
 
     }
 
@@ -152,7 +145,6 @@ public class PlayerController : MonoBehaviour {
     // Returns true if player is holding the fire input
     bool FireHeld()
     {
-        //TODO conditional compilation
 #if UNITY_EDITOR
         // PC/Web/PS4 version
         if(Input.GetAxis("Fire1") > 0)
@@ -191,7 +183,7 @@ public class PlayerController : MonoBehaviour {
                 return false;
             }
         } else {
-            return false
+            return false;
         }
 #endif
 #if UNITY_IOS
@@ -203,11 +195,11 @@ public class PlayerController : MonoBehaviour {
                 return false;
             }
         } else {
-            return false
+            return false;
         }
 #endif
 #if UNITY_PS4
-        if (Input.GetAxis("Fire1") > 0)
+        if (Input.GetAxis("Fire1") > 0)     // Square button
         {
             return true;
         }
@@ -216,7 +208,6 @@ public class PlayerController : MonoBehaviour {
             return false;
         }
 #endif
-        // TODO touchscreen version
     }
 
     void ShootArrow()
@@ -226,9 +217,8 @@ public class PlayerController : MonoBehaviour {
 
         GameObject arrow = (GameObject)Instantiate(Projectile);
 
-        // TODO set position appropriately
+        // Arrow starts at muzzle point
         arrow.transform.position = MuzzleTransform.position;
-
 
         arrow.GetComponent<Rigidbody>().AddForce(arrowForce, ForceMode.Impulse);
     }

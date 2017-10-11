@@ -4,14 +4,14 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 12
-  productGUID: 055a2f31050662c47b16c2c1313eec72
+  productGUID: e2807d7ee269e7d4ebd92d2afc76facf
   AndroidProfiler: 0
   defaultScreenOrientation: 4
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: AIE
-  productName: Cannonball - Cross Platform Project
+  companyName: DefaultCompany
+  productName: Cross Platform Project
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
